@@ -1,0 +1,933 @@
+/* =========================================================
+   TODO DASHBOARD - FORMAL DIGITAL UI
+   ========================================================= */
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Mono:wght@400;500;600&display=swap");
+
+
+/* =========================================================
+   GLOBAL
+   ========================================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --accent: #0ea5e9;
+
+  --success: #16a34a;
+  --danger: #dc2626;
+  --warning: #d97706;
+
+  --background: #f4f7fb;
+  --surface: #ffffff;
+  --surface-dark: #111827;
+
+  --text: #172033;
+  --text-secondary: #64748b;
+  --text-light: #94a3b8;
+
+  --border: #e2e8f0;
+  --border-dark: #cbd5e1;
+
+  --shadow:
+    0 8px 25px rgba(15, 23, 42, 0.07);
+
+  --shadow-hover:
+    0 12px 30px rgba(15, 23, 42, 0.11);
+}
+
+
+/* =========================================================
+   HTML / BODY
+   ========================================================= */
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+}
+
+body {
+  min-height: 100vh;
+
+  background: var(--background);
+
+  color: var(--text);
+
+  font-family: "Inter", sans-serif;
+
+  overflow-x: hidden;
+}
+
+
+/* =========================================================
+   REMOVE DECORATIVE CYBER BACKGROUND
+   ========================================================= */
+
+body::before,
+body::after {
+  display: none;
+}
+
+
+/* =========================================================
+   ROOT
+   ========================================================= */
+
+#root {
+  min-height: 100vh;
+}
+
+
+/* =========================================================
+   LOGIN / REGISTER PAGE
+   ========================================================= */
+
+.login-container,
+.login,
+.auth-container,
+.register-container {
+  min-height: 100vh;
+
+  width: 100%;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding: 30px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f8fafc,
+      #eef4ff
+    );
+}
+
+
+/* =========================================================
+   LOGIN CARD
+   ========================================================= */
+
+.login-container form,
+.login form,
+.auth-container form,
+.register-container form {
+  width: 430px;
+
+  max-width: 100%;
+
+  padding: 40px;
+
+  background: var(--surface);
+
+  border: 1px solid var(--border);
+
+  border-radius: 12px;
+
+  box-shadow: var(--shadow);
+
+  position: relative;
+}
+
+
+/* =========================================================
+   CARD TOP ACCENT
+   ========================================================= */
+
+.login-container form::before,
+.login form::before,
+.auth-container form::before,
+.register-container form::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 4px;
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--primary),
+      var(--accent)
+    );
+
+  border-radius:
+    12px 12px 0 0;
+}
+
+
+/* =========================================================
+   REMOVE DECORATIVE CORNER
+   ========================================================= */
+
+.login-container form::after,
+.login form::after,
+.auth-container form::after,
+.register-container form::after {
+  display: none;
+}
+
+
+/* =========================================================
+   LOGIN TITLE
+   ========================================================= */
+
+.login-container h1,
+.login h1,
+.auth-container h1,
+.register-container h1 {
+  text-align: center;
+
+  color: var(--text);
+
+  font-family: "Inter", sans-serif;
+
+  font-size: 30px;
+
+  font-weight: 700;
+
+  letter-spacing: -0.5px;
+
+  margin-bottom: 8px;
+}
+
+
+/* =========================================================
+   LOGIN SUBTITLE
+   ========================================================= */
+
+.login-container form > p:first-of-type,
+.login form > p:first-of-type,
+.auth-container form > p:first-of-type,
+.register-container form > p:first-of-type {
+  text-align: center;
+
+  color: var(--text-secondary);
+
+  font-size: 15px;
+
+  line-height: 1.5;
+
+  margin-bottom: 28px;
+}
+
+
+/* =========================================================
+   LABELS
+   ========================================================= */
+
+.login-container label,
+.login label,
+.auth-container label,
+.register-container label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: #334155;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  letter-spacing: 0.2px;
+
+  text-transform: uppercase;
+}
+
+
+/* =========================================================
+   INPUTS
+   ========================================================= */
+
+.login-container input,
+.login input,
+.auth-container input,
+.register-container input {
+  width: 100%;
+
+  height: 46px;
+
+  padding: 0 14px;
+
+  margin-bottom: 18px;
+
+  background: #ffffff;
+
+  color: var(--text);
+
+  border: 1px solid var(--border-dark);
+
+  border-radius: 7px;
+
+  outline: none;
+
+  font-family: "Inter", sans-serif;
+
+  font-size: 15px;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+.login-container input:focus,
+.login input:focus,
+.auth-container input:focus,
+.register-container input:focus {
+  border-color: var(--primary);
+
+  box-shadow:
+    0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+
+.login-container input::placeholder,
+.login input::placeholder,
+.auth-container input::placeholder,
+.register-container input::placeholder {
+  color: var(--text-light);
+}
+
+
+/* =========================================================
+   LOGIN BUTTON
+   ========================================================= */
+
+.login-container form button,
+.login form button,
+.auth-container form button,
+.register-container form button {
+  width: 100%;
+
+  height: 46px;
+
+  margin-top: 5px;
+
+  border: none;
+
+  border-radius: 7px;
+
+  background: var(--primary);
+
+  color: white;
+
+  font-family: "Inter", sans-serif;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  letter-spacing: 0.2px;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+.login-container form button:hover,
+.login form button:hover,
+.auth-container form button:hover,
+.register-container form button:hover {
+  background: var(--primary-dark);
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 5px 15px rgba(37, 99, 235, 0.2);
+}
+
+
+.login-container button:disabled,
+.login button:disabled,
+.auth-container button:disabled,
+.register-container button:disabled {
+  opacity: 0.6;
+
+  cursor: not-allowed;
+
+  transform: none;
+}
+
+
+/* =========================================================
+   LINKS
+   ========================================================= */
+
+.login-container a,
+.login a,
+.auth-container a,
+.register-container a {
+  color: var(--primary);
+
+  text-decoration: none;
+
+  font-weight: 600;
+}
+
+
+.login-container a:hover,
+.login a:hover,
+.auth-container a:hover,
+.register-container a:hover {
+  text-decoration: underline;
+}
+
+
+/* =========================================================
+   LOGIN MESSAGE
+   ========================================================= */
+
+.login-message {
+  margin: 15px 0;
+
+  text-align: center;
+
+  color: var(--success);
+
+  font-size: 14px;
+
+  font-weight: 600;
+}
+
+
+/* =========================================================
+   LAST LOGIN PARAGRAPH
+   ========================================================= */
+
+.login-container form > p:last-child,
+.login form > p:last-child,
+.auth-container form > p:last-child,
+.register-container form > p:last-child {
+  margin-top: 20px;
+
+  margin-bottom: 0;
+
+  color: var(--text-secondary);
+
+  font-size: 14px;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   TODO DASHBOARD
+   ========================================================= */
+
+.todo-container {
+  min-height: 100vh;
+
+  width: 100%;
+
+  padding: 35px 20px;
+
+  background: var(--background);
+
+  color: var(--text);
+
+  font-family: "Inter", sans-serif;
+}
+
+
+/* =========================================================
+   TODO HEADER
+   ========================================================= */
+
+.todo-container h1 {
+  max-width: 760px;
+
+  margin: 0 auto 8px;
+
+  color: var(--text);
+
+  font-family: "Inter", sans-serif;
+
+  font-size: 30px;
+
+  font-weight: 700;
+
+  letter-spacing: -0.5px;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   TITLE STATUS
+   ========================================================= */
+
+.todo-container h1::before {
+  content: "";
+
+  display: inline-block;
+
+  width: 8px;
+  height: 8px;
+
+  margin-right: 9px;
+
+  vertical-align: middle;
+
+  background: var(--success);
+
+  border-radius: 50%;
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+   ========================================================= */
+
+.todo-container > div {
+  width: 100%;
+
+  max-width: 760px;
+
+  margin: 0 auto;
+}
+
+
+/* =========================================================
+   LOGOUT BUTTON
+   ========================================================= */
+
+.todo-container > button {
+  display: block;
+
+  height: 38px;
+
+  margin: 0 auto 25px;
+
+  padding: 0 18px;
+
+  color: var(--danger);
+
+  background: #ffffff;
+
+  border: 1px solid #fecaca;
+
+  border-radius: 6px;
+
+  font-family: "Inter", sans-serif;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+
+.todo-container > button:hover {
+  background: #fef2f2;
+
+  border-color: #fca5a5;
+}
+
+
+/* =========================================================
+   ADD TASK SECTION
+   ========================================================= */
+
+.todo-container input[type="text"] {
+  width: calc(100% - 90px);
+
+  height: 44px;
+
+  padding: 0 13px;
+
+  margin: 0;
+
+  color: var(--text);
+
+  background: white;
+
+  border: 1px solid var(--border-dark);
+
+  border-radius: 7px;
+
+  outline: none;
+
+  font-family: "Inter", sans-serif;
+
+  font-size: 14px;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+.todo-container input[type="text"]:focus {
+  border-color: var(--primary);
+
+  box-shadow:
+    0 0 0 3px rgba(37, 99, 235, 0.08);
+}
+
+
+.todo-container input[type="text"]::placeholder {
+  color: var(--text-light);
+}
+
+
+/* =========================================================
+   ADD BUTTON
+   ========================================================= */
+
+.todo-container input[type="text"] + button {
+  width: 78px;
+
+  height: 44px;
+
+  margin-left: 8px;
+
+  padding: 0;
+
+  background: var(--primary);
+
+  color: white;
+
+  border: none;
+
+  border-radius: 7px;
+
+  font-family: "Inter", sans-serif;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+.todo-container input[type="text"] + button:hover {
+  background: var(--primary-dark);
+
+  transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   TASK LIST
+   ========================================================= */
+
+.todo-container ul {
+  width: 100%;
+
+  max-width: 760px;
+
+  margin: 22px auto 0;
+
+  padding: 0;
+
+  list-style: none;
+}
+
+
+/* =========================================================
+   TASK DATABASE LABEL
+   ========================================================= */
+
+.todo-container ul::before {
+  content: "YOUR TASKS";
+
+  display: block;
+
+  margin-bottom: 10px;
+
+  color: var(--text-secondary);
+
+  font-family: "Roboto Mono", monospace;
+
+  font-size: 11px;
+
+  font-weight: 500;
+
+  letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   TASK ROW
+   ========================================================= */
+
+.todo-container li {
+  width: 100%;
+
+  min-height: 52px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  margin-bottom: 8px;
+
+  padding: 8px 12px;
+
+  background: var(--surface);
+
+  border: 1px solid var(--border);
+
+  border-radius: 7px;
+
+  box-shadow:
+    0 2px 7px rgba(15, 23, 42, 0.03);
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+.todo-container li:hover {
+  border-color: #cbd5e1;
+
+  box-shadow:
+    0 5px 15px rgba(15, 23, 42, 0.06);
+}
+
+
+/* =========================================================
+   CHECKBOX
+   ========================================================= */
+
+.todo-container li input[type="checkbox"] {
+  width: 17px !important;
+
+  height: 17px !important;
+
+  flex: 0 0 17px;
+
+  margin: 0 !important;
+
+  accent-color: var(--primary);
+
+  cursor: pointer;
+}
+
+
+/* =========================================================
+   TASK TEXT
+   ========================================================= */
+
+.todo-container li span {
+  flex: 1;
+
+  min-width: 0;
+
+  color: var(--text);
+
+  font-size: 15px;
+
+  font-weight: 500;
+
+  line-height: 1.4;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   COMPLETED TASK
+   ========================================================= */
+
+.todo-container li input[type="checkbox"]:checked + span {
+  color: var(--text-light);
+
+  text-decoration: line-through;
+
+  text-decoration-color: var(--text-light);
+}
+
+
+/* =========================================================
+   TASK BUTTONS
+   ========================================================= */
+
+.todo-container li button {
+  flex: 0 0 auto;
+
+  min-width: 55px;
+
+  height: 30px;
+
+  margin: 0;
+
+  padding: 0 10px;
+
+  color: var(--primary);
+
+  background: #eff6ff;
+
+  border: 1px solid #bfdbfe;
+
+  border-radius: 5px;
+
+  font-family: "Inter", sans-serif;
+
+  font-size: 12px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+
+.todo-container li button:hover {
+  background: #dbeafe;
+
+  border-color: #93c5fd;
+}
+
+
+/* =========================================================
+   DELETE
+   ========================================================= */
+
+.todo-container li button:last-child {
+  color: var(--danger);
+
+  background: #fef2f2;
+
+  border-color: #fecaca;
+}
+
+
+.todo-container li button:last-child:hover {
+  background: #fee2e2;
+
+  border-color: #fca5a5;
+}
+
+
+/* =========================================================
+   TABLET / MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .login-container,
+  .login,
+  .auth-container,
+  .register-container {
+    padding: 18px;
+  }
+
+
+  .login-container form,
+  .login form,
+  .auth-container form,
+  .register-container form {
+    padding: 32px 22px;
+  }
+
+
+  .login-container h1,
+  .login h1,
+  .auth-container h1,
+  .register-container h1 {
+    font-size: 26px;
+  }
+
+
+  .todo-container {
+    padding: 25px 12px;
+  }
+
+
+  .todo-container h1 {
+    font-size: 25px;
+  }
+
+
+  .todo-container input[type="text"] {
+    width: calc(100% - 75px);
+  }
+
+
+  .todo-container input[type="text"] + button {
+    width: 65px;
+
+    margin-left: 6px;
+  }
+
+
+  .todo-container li {
+    gap: 6px;
+
+    padding: 7px;
+  }
+
+
+  .todo-container li span {
+    font-size: 14px;
+  }
+
+
+  .todo-container li button {
+    min-width: 48px;
+
+    height: 29px;
+
+    padding: 0 7px;
+
+    font-size: 11px;
+  }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+
+    transition: none !important;
+  }
+}
