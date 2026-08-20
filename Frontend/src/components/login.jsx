@@ -1,106 +1,157 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+const API_URL = "https://todo-backend-1-t6bd.onrender.com";
 
 function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
-  const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [message, setMessage] = useState("");
+    const [loading, setLoading] = useState(false);
 
-    setMessage("");
+    const handleLogin = async (e) => {
+        e.preventDefault();
 
-    if (!email || !password) {
-      setMessage("Please enter email and password");
-      return;
-    }
+        setMessage("");
 
-    try {
-      setLoading(true);
+        if (!email.trim() || !password.trim()) {
+            setMessage("Please enter email and password");
+            return;
+        }
 
-      const response = await fetch("http://localhost:3000/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
-      });
+        try {
+            setLoading(true);
 
-      const data = await response.json();
+            const response = await fetch(
+                `${API_URL}/api/auth/login`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        email: email.trim(),
+                        password: password
+                    })
+                }
+            );
 
-      console.log("Login response:", data);
+            const data = await response.json();
 
-      if (!response.ok) {
-        setMessage(data.message || "Login failed");
-        return;
-      }
+            console.log("Login response:", data);
 
-      // Save token if your backend returns one
-      if (data.token) {
-        localStorage.setItem("token", data.token);
-      }
+            if (!response.ok) {
+                setMessage(
+                    data.message || "Invalid email or password"
+                );
+                return;
+            }
 
-      setMessage("Login successful!");
+            if (data.token) {
+                localStorage.setItem("token", data.token);
+            }
 
-      // Change this according to your dashboard route
-      window.location.hash = "#/todo";
+            if (data.user) {
+                localStorage.setItem(
+                    "user",
+                    JSON.stringify(data.user)
+                );
+            }
 
-    } catch (error) {
-      console.error("Login error:", error);
-      setMessage("Unable to connect to server");
-    } finally {
-      setLoading(false);
-    }
-  };
+            setMessage("Login successful!");
 
-  return (
-    <div className="login-container">
-      <form onSubmit={handleLogin}>
+            setTimeout(() => {
+                navigate("/todo");
+            }, 500);
 
-        <h1>Welcome Back</h1>
+        } catch (error) {
+            console.error("Login error:", error);
 
-        <p>Login to manage your tasks</p>
+            setMessage(
+                "Unable to connect to server"
+            );
+        } finally {
+            setLoading(false);
+        }
+    };
 
-        <label>EMAIL</label>
+    return (
+        <div className="login-container">
 
-        <input
-          type="email"
-          placeholder="Enter your email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+            <div className="login-box">
 
-        <label>PASSWORD</label>
+                <h1>Welcome Back</h1>
 
-        <input
-          type="password"
-          placeholder="Enter your password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+                <p>Login to manage your tasks</p>
 
-        <button type="submit" disabled={loading}>
-          {loading ? "LOGGING IN..." : "LOGIN"}
-        </button>
+                <form onSubmit={handleLogin}>
 
-        {message && (
-          <div className="login-message">
-            {message}
-          </div>
-        )}
+                    <div className="form-group">
+                        <label htmlFor="email">
+                            EMAIL
+                        </label>
 
-        <p>
-          Don't have an account?{" "}
-          <a href="#/register">Register</a>
-        </p>
+                        <input
+                            id="email"
+                            name="email"
+                            type="email"
+                            placeholder="Enter your email"
+                            value={email}
+                            onChange={(e) =>
+                                setEmail(e.target.value)
+                            }
+                            required
+                        />
+                    </div>
 
-      </form>
-    </div>
-  );
+                    <div className="form-group">
+                        <label htmlFor="password">
+                            PASSWORD
+                        </label>
+
+                        <input
+                            id="password"
+                            name="password"
+                            type="password"
+                            placeholder="Enter your password"
+                            value={password}
+                            onChange={(e) =>
+                                setPassword(e.target.value)
+                            }
+                            required
+                        />
+                    </div>
+
+                    <button
+                        type="submit"
+                        disabled={loading}
+                    >
+                        {loading
+                            ? "LOGGING IN..."
+                            : "LOGIN"}
+                    </button>
+
+                </form>
+
+                {message && (
+                    <p className="login-message">
+                        {message}
+                    </p>
+                )}
+
+                <p>
+                    Don't have an account?{" "}
+                    <a href="#/register">
+                        Register
+                    </a>
+                </p>
+
+            </div>
+
+        </div>
+    );
 }
 
 export default Login;

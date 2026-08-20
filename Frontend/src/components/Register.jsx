@@ -3,123 +3,115 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 function Register() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [loading, setLoading] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
-    const submitData = async (e) => {
-        e.preventDefault();
+  const submitData = async (e) => {
+    e.preventDefault();
 
-        if (!name || !email || !password) {
-            alert("Please fill all fields");
-            return;
+    if (!name || !email || !password) {
+      alert("Please fill all fields");
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      const response = await axios.post(
+        "https://todo-backend-1-t6bd.onrender.com/api/auth/register",
+        {
+          name,
+          email,
+          password,
         }
+      );
 
-        try {
-            setLoading(true);
+      console.log("Register response:", response.data);
 
-            const response = await axios.post(
-                "https://todo-dashboard-oft2.onrender.com/api/auth/register",
-                {
-                    name,
-                    email,
-                    password
-                }
-            );
+      alert("Registration successful!");
 
-            console.log("Register response:", response.data);
+      navigate("/login");
 
-            alert("Registration successful!");
+    } catch (error) {
+      console.error("Register error:", error);
 
-            navigate("/login");
+      alert(
+        error.response?.data?.message ||
+        "Registration failed"
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
 
-        } catch (error) {
-            console.log("Register error:", error);
+  return (
+    <div className="login-container">
 
-            alert(
-                error.response?.data?.message ||
-                "Registration failed"
-            );
-        } finally {
-            setLoading(false);
-        }
-    };
+      <div className="login-box">
 
-    return (
-        <div className="login-container">
+        <h1>Create Account</h1>
 
-            <div className="login-box">
+        <p>Register to manage your tasks</p>
 
-                <h1>Create Account</h1>
+        <form onSubmit={submitData}>
 
-                <p>Register to manage your tasks</p>
+          <div className="form-group">
+            <label>Name</label>
 
-                <form onSubmit={submitData}>
+            <input
+              type="text"
+              placeholder="Enter your name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </div>
 
-                    <div className="form-group">
-                        <label>Name</label>
+          <div className="form-group">
+            <label>Email</label>
 
-                        <input
-                            type="text"
-                            placeholder="Enter your name"
-                            value={name}
-                            onChange={(e) =>
-                                setName(e.target.value)
-                            }
-                        />
-                    </div>
+            <input
+              type="email"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
 
-                    <div className="form-group">
-                        <label>Email</label>
+          <div className="form-group">
+            <label>Password</label>
 
-                        <input
-                            type="email"
-                            placeholder="Enter your email"
-                            value={email}
-                            onChange={(e) =>
-                                setEmail(e.target.value)
-                            }
-                        />
-                    </div>
+            <input
+              type="password"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
 
-                    <div className="form-group">
-                        <label>Password</label>
+          <button
+            type="submit"
+            disabled={loading}
+          >
+            {loading ? "Registering..." : "Register"}
+          </button>
 
-                        <input
-                            type="password"
-                            placeholder="Enter your password"
-                            value={password}
-                            onChange={(e) =>
-                                setPassword(e.target.value)
-                            }
-                        />
-                    </div>
+        </form>
 
-                    <button
-                        type="submit"
-                        disabled={loading}
-                    >
-                        {loading
-                            ? "Registering..."
-                            : "Register"}
-                    </button>
+        <p>
+          Already have an account?{" "}
+          <Link to="/login">
+            Login
+          </Link>
+        </p>
 
-                </form>
+      </div>
 
-                <p>
-                    Already have an account?{" "}
-                    <Link to="/login">
-                        Login
-                    </Link>
-                </p>
-
-            </div>
-
-        </div>
-    );
+    </div>
+  );
 }
 
 export default Register;

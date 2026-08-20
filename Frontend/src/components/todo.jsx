@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const API_URL = "https://todo-dashboard-oft2.onrender.com";
+const API_URL = "https://todo-backend-1-t6bd.onrender.com";
 
 function Todo() {
     const navigate = useNavigate();
@@ -17,22 +17,22 @@ function Todo() {
 
     const token = localStorage.getItem("token");
 
+    // Get Todos
     const getTodo = async () => {
         try {
             setLoading(true);
             setError("");
 
             const response = await axios.get(
-                `${API_URL}/api/todos`,
+                `${API_URL}/api/todo`,
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`
-                    }
+                        Authorization: `Bearer ${token}`,
+                    },
                 }
             );
 
             setTodos(response.data);
-
         } catch (error) {
             console.log("Get Todo Error:", error);
 
@@ -73,20 +73,19 @@ function Todo() {
 
         try {
             await axios.post(
-                `${API_URL}/api/todos`,
+                `${API_URL}/api/todo`,
                 {
-                    title: title
+                    title: title,
                 },
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`
-                    }
+                        Authorization: `Bearer ${token}`,
+                    },
                 }
             );
 
             setTitle("");
             getTodo();
-
         } catch (error) {
             console.log("Add Todo Error:", error);
 
@@ -112,14 +111,14 @@ function Todo() {
 
         try {
             await axios.put(
-                `${API_URL}/api/todos/${id}`,
+                `${API_URL}/api/todo/${id}`,
                 {
-                    title: editTitle
+                    title: editTitle,
                 },
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`
-                    }
+                        Authorization: `Bearer ${token}`,
+                    },
                 }
             );
 
@@ -127,7 +126,6 @@ function Todo() {
             setEditTitle("");
 
             getTodo();
-
         } catch (error) {
             console.log("Update Todo Error:", error);
 
@@ -142,20 +140,19 @@ function Todo() {
     const toggleTodo = async (todo) => {
         try {
             await axios.put(
-                `${API_URL}/api/todos/${todo._id}`,
+                `${API_URL}/api/todo/${todo._id}`,
                 {
                     title: todo.title,
-                    completed: !todo.completed
+                    completed: !todo.completed,
                 },
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`
-                    }
+                        Authorization: `Bearer ${token}`,
+                    },
                 }
             );
 
             getTodo();
-
         } catch (error) {
             console.log("Toggle Todo Error:", error);
 
@@ -170,16 +167,15 @@ function Todo() {
     const deleteTodo = async (id) => {
         try {
             await axios.delete(
-                `${API_URL}/api/todos/${id}`,
+                `${API_URL}/api/todo/${id}`,
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`
-                    }
+                        Authorization: `Bearer ${token}`,
+                    },
                 }
             );
 
             getTodo();
-
         } catch (error) {
             console.log("Delete Todo Error:", error);
 
